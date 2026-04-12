@@ -51,7 +51,7 @@ const index = seed % statusList.length;
 
 document.getElementById("status").textContent = statusList[index];
 //======NHẠC 🎵=====
-    document.getElementById("bgMusic");//👉 Lấy audio
+    const bgMusic =document.getElementById("bgMusic");//👉 Lấy audio
     const musicBtn = document.getElementById("musicBtn");
     bgMusic.volume = 0.45;//👉 Âm lượng
 
@@ -95,15 +95,90 @@ document.getElementById("status").textContent = statusList[index];
       window.addEventListener("touchstart", start, { once:true });
     }
 
-    //# 🌟 PHẦN 11: CHẠY LÚC MỞ WEB
+
+const confettiBox = document.getElementById("confetti");
+
+function createConfettiPiece(){
+  const el = document.createElement("span");
+
+  el.innerHTML = "💗";
+
+  el.style.position = "absolute";
+  el.style.left = Math.random() * 100 + "vw";
+  el.style.top = "-20px";
+
+  el.style.fontSize = (Math.random() * 10 + 10) + "px";
+
+  // ✅ để opacity ở đây
+  el.style.opacity = (Math.random() * 0.3 + 0.2).toFixed(2);
+
+  const duration = Math.random() * 6 + 8;
+  el.style.animation = "fallSoft " + duration + "s linear";
+
+  confettiBox.appendChild(el);
+
+  setTimeout(() => {
+    el.remove();
+  }, (duration + 2) * 1000);
+}
+function startGentleConfetti(){
+  const isMobile = window.innerWidth < 600;
+
+  const amount = isMobile ? 1 : 2;      // 📱 ít hơn
+  const speed = isMobile ? 900 : 500;   // 📱 chậm hơn
+
+  setInterval(() => {
+    for(let i = 0; i < amount; i++){
+      createConfettiPiece();
+    }
+  }, speed);
+}
+// 🌟 PHẦN 4: SAO LẤP LÁNH ⭐
+    const canvas = document.getElementById("stars");//👉 Lấy canvas (vùng vẽ)
+    const ctx = canvas.getContext("2d");//👉 Lấy công cụ vẽ 2D
+    let W, H, stars;
+
+    function resize(){//👉 Khi thay đổi kích thước màn hình
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+      createStars();//👉 Tạo sao mới
+    }
+    window.addEventListener("resize", resize);
+
+    function createStars(){//👉 Tạo danh sách sao
+      const count = Math.floor((W * H) / 12000);
+      stars = Array.from({length: count}, () => ({//👉 Tạo nhiều ngôi sao random
+        x: Math.random()*W,
+        y: Math.random()*H,
+        r: Math.random()*1.4 + 0.3,
+        a: Math.random()*0.8 + 0.2
+      }));
+    }
+
+    function draw(){//👉 Vẽ sao
+      ctx.clearRect(0,0,W,H);
+      for(const st of stars){
+        st.a += (Math.random() - 0.5) * 0.1;
+        st.a = Math.max(0.12, Math.min(0.95, st.a));
+        ctx.beginPath();
+        ctx.arc(st.x, st.y, st.r, 0, Math.PI*2);//👉 Vẽ hình tròn (ngôi sao)
+        ctx.fillStyle = `rgba(255,255,255,${st.a})`;
+        ctx.fill();
+      }
+      requestAnimationFrame(draw);//👉 Lặp animation liên tục
+    }
+// 🚀 chạy    
+//# 🌟 PHẦN 11: CHẠY LÚC MỞ WEB
     resize();
     draw();
     startGentleConfetti();
     //resize(); draw(); startGentleConfetti() 👉 Khởi động hiệu ứng
-    buildMarquee();
-    buildImages();
-    updateStats();
-    setInterval(updateStats, 60*1000);//👉 Cập nhật mỗi phút
+    //buildMarquee();
+    //buildImages();
+    //updateStats();
+    //setInterval(updateStats, 60*1000);//👉 Cập nhật mỗi phút
     updateMusicBtn();
     enableMusicOnFirstTouch();//👉 Click mới bật nhạc (tránh bị chặn)
     if(musicOn) playMusic();
+//mưa hồng
+
