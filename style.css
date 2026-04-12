@@ -5,7 +5,13 @@ background: linear-gradient(160deg,#0b0f2a,#1a1f4d);
 color:white;
 text-align:center;
 }
-
+body > *:not(canvas){
+  position: relative;
+  z-index: 2;
+}
+section{
+  border: 1px solid rgba(255,255,255,0.15);
+}
 /* ===== LOVE HEADER ===== */
 .love{
   display:flex;
@@ -178,4 +184,102 @@ font-style:italic;
       cursor: pointer;
       backdrop-filter: blur(10px);
       box-shadow: 0 18px 50px rgba(0,0,0,.35);
+    }
+body{
+  margin:0;
+  background: linear-gradient(160deg,#0b0f2a,#1a1f4d);
+  overflow:hidden;
+}
+
+/* 💗 vùng chứa confetti */
+#confetti{
+  z-index: 1;
+}
+
+#confetti span{
+  position:absolute;
+  user-select:none;
+}
+
+/* 🌸 hiệu ứng rơi nhẹ */
+@keyframes fallSoft {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(25vh) translateX(-10px) rotate(20deg);
+  }
+  50% {
+    transform: translateY(50vh) translateX(10px) rotate(-20deg);
+  }
+  75% {
+    transform: translateY(75vh) translateX(-8px) rotate(15deg);
+  }
+  100% {
+    transform: translateY(110vh) translateX(5px) rotate(0deg);
+  }
+}
+/*sao*/
+    /* stats */
+    #stars{
+      position: fixed;
+      inset: 0;
+    z-index: 0;
+    }
+    .stats-wrap{ padding: 18px 18px 12px; margin: 0 auto 22px; }
+    .stats-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+    .stats-top h2{ margin:0; font-size:20px; }
+    .stats-top p{ margin:8px 0 0; color: rgba(255,255,255,.72); line-height:1.5; }
+    .stats-row{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 8px; }
+    .divider{ margin-top:14px; border-top:1px solid rgba(255,255,255,.12); padding-top:12px; }
+
+    .wish-grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+    }
+    @media (max-width: 520px){
+      .wish-grid{ grid-template-columns: 1fr; }
+    }
+
+    /* modal */
+    .modal{
+      position:fixed;
+      inset:0;
+      display:none;
+      place-items:center;
+      z-index: 100;
+      padding: 18px;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(8px);
+    }
+    .modal.show{ display:grid; }
+    .modal-box{
+      width: min(520px, 92vw);
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.2);
+      background: rgba(13, 21, 48, .85);
+      box-shadow: 0 40px 120px rgba(0,0,0,.65);
+      padding: 18px 18px 16px;
+      position:relative;
+      overflow:hidden;
+    }
+    .modal-box h4{ margin:0; font-size: 20px; }
+    .modal-box p{ margin: 8px 0 14px; color: rgba(255,255,255,.75); line-height:1.55; }
+    .close{
+      position:absolute;
+      top:12px; right:12px;
+      width:40px; height:40px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.08);
+      color: rgba(255,255,255,.92);
+      font-size: 20px;
+      cursor:pointer;
     }
