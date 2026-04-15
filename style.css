@@ -9,9 +9,7 @@ body > *:not(canvas){
   position: relative;
   z-index: 2;
 }
-section{
-  border: 1px solid rgba(255,255,255,0.15);
-}
+
 /* ===== LOVE HEADER ===== */
 .love{
   display:flex;
