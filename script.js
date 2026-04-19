@@ -8,8 +8,6 @@ function calcDays(){
 }
 
 document.getElementById("days").textContent = calcDays();
-
-
 // ===== STATUS (30 CÂU) =====
 const statusList = [
   "Vẫn ổn, chỉ là thiếu một người.",
