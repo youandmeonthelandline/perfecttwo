@@ -360,3 +360,14 @@ font-style:italic;
   opacity:0.7;
   font-style:italic;
 }
+/*fix vỡ màn*/
+@media (max-width: 500px){
+  .distance-box{
+    flex-direction: column;
+    gap:10px;
+  }
+
+  .line-distance{
+    width:80px;
+  }
+}
