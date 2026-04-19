@@ -2,7 +2,13 @@
 body{
   margin:0;
   font-family: Arial;
-  background: linear-gradient(160deg,#0b0f2a,#1a1f4d);
+
+  background:
+    radial-gradient(circle at 20% 30%, #ff9edb33, transparent 40%),
+    radial-gradient(circle at 80% 70%, #a78bfa33, transparent 40%),
+    radial-gradient(circle at 50% 50%, #ffffff22, transparent 60%),
+    linear-gradient(160deg, #0b0f2a, #1a1f4d, #2b1f5a);
+
   color:white;
   text-align:center;
   overflow-y:auto;
