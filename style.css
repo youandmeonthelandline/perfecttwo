@@ -319,16 +319,36 @@ body > *:not(canvas){
   cursor:pointer;
 }
 
-/* ===== CONFETTI ===== */
+/* ===== CONFETTI 💗 ===== */
 #confetti{
   position: fixed;
-  inset:0;
-  z-index:10;
-  pointer-events:none;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
 }
 
 #confetti span{
   position:absolute;
+  user-select:none;
+}
+
+/* 🌸 rơi mềm kiểu zigzag */
+@keyframes fallSoft {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(25vh) translateX(-10px) rotate(20deg);
+  }
+  50% {
+    transform: translateY(50vh) translateX(10px) rotate(-20deg);
+  }
+  75% {
+    transform: translateY(75vh) translateX(-8px) rotate(15deg);
+  }
+  100% {
+    transform: translateY(110vh) translateX(5px) rotate(0deg);
+  }
 }
 
 /* ===== STARS ===== */
