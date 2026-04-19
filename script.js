@@ -82,19 +82,81 @@ document.getElementById("status").textContent = statusList[index];
     });
 
     // ✅ auto play when user first interacts (mobile friendly)
-    function enableMusicOnFirstTouch(){
-      const start = async () => {
-        if(!musicOn){
-          await playMusic();
-        }else{
-          // if previously on, try resume
-          await playMusic();
-        }
-      };
+    const start = async () => {
+  if(!musicOn){
+    await bgMusic.play(); // ✅ dùng trực tiếp
+    musicOn = true;
+    localStorage.setItem("musicOn","true");
+    updateMusicBtn();
+  }
+};
       window.addEventListener("click", start, { once:true });
       window.addEventListener("touchstart", start, { once:true });
     }
+const playlist = [
+  {src:"asset/phokhongem.mp3", name:"🎶 Phố không em"},
+  {src:"asset/song1.mp3", name:"💗 Bài 1"},
+  {src:"asset/song2.mp3", name:"🌙 Bài 2"},
+  {src:"asset/song3.mp3", name:"✨ Bài 3"}
+];
 
+let currentSong = 0;
+
+// load bài
+function loadSong(index){
+  currentSong = index;
+  bgMusic.src = playlist[currentSong].src;
+
+  document.getElementById("musicTitle").textContent =
+    playlist[currentSong].name;
+
+  localStorage.setItem("currentSong", currentSong);
+}
+
+// play bài cụ thể
+function playSong(index){
+  loadSong(index);
+  bgMusic.play();
+
+  musicOn = true;
+  localStorage.setItem("musicOn","true");
+  updateMusicBtn();
+}
+
+// play / pause
+function togglePlay(){
+  if(bgMusic.paused){
+    bgMusic.play();
+    musicOn = true;
+  }else{
+    bgMusic.pause();
+    musicOn = false;
+  }
+
+  localStorage.setItem("musicOn", musicOn);
+  updateMusicBtn();
+}
+
+// next
+function nextSong(){
+  currentSong = (currentSong + 1) % playlist.length;
+  playSong(currentSong);
+}
+
+// prev
+function prevSong(){
+  currentSong = (currentSong - 1 + playlist.length) % playlist.length;
+  playSong(currentSong);
+}
+
+// auto load khi mở web
+let savedSong = localStorage.getItem("currentSong");
+
+if(savedSong !== null){
+  currentSong = parseInt(savedSong);
+}
+
+loadSong(currentSong);
 
 const confettiBox = document.getElementById("confetti");
 
