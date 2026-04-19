@@ -246,11 +246,11 @@ function calculateDistance(){
 document.getElementById("distanceText").textContent =
   "Cách nhau " + calculateDistance() + " km 💗";
 
-
-// ===== RUN =====
+//RUN
 resize();
 draw();
-startGentleConfetti();
+startAestheticConfetti();
+
 window.addEventListener("load", () => {
   window.scrollTo({
     top: 0,
