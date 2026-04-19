@@ -301,20 +301,24 @@ font-style:italic;
   box-shadow: 0 20px 60px rgba(0,0,0,0.4);
   border: 1px solid rgba(255,255,255,0.15);
 }
-
 .distance-box{
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:15px;
-  margin:20px 0;
-  flex-wrap:wrap;
-}
+  gap:20px;
+  margin:25px 0;
 
+  flex-wrap:nowrap; /* ❗ bắt buộc để không xuống dòng */
+}
 .place{
   font-weight: bold;
   opacity: 0.9;
 }
+.place{
+  min-width:120px;
+  text-align:center;
+}
+
 
 /* đường nối */
 .line-distance{
