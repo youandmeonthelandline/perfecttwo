@@ -132,53 +132,58 @@ window.addEventListener("click", () => {
 // auto next
 bgMusic.addEventListener("ended", nextSong);
 
-// ===== CONFETTI 💗 (BẢN GỐC MƯỢT) =====
+//// ===== CONFETTI AESTHETIC FULL =====
 const confettiBox = document.getElementById("confetti");
 
-function createConfettiPiece(){
+const hearts = ["💗","💕","💞","💓"];
+
+function createAestheticConfetti(){
   if(!confettiBox) return;
 
   const el = document.createElement("span");
+  el.classList.add("confetti-piece");
 
-  // 💗 tim
-  el.innerHTML = "💗";
+  // 💗 random tim
+  el.innerHTML = hearts[Math.floor(Math.random()*hearts.length)];
 
-  el.style.position = "absolute";
-  el.style.left = Math.random() * 100 + "vw";
+  // vị trí
+  el.style.left = Math.random()*100 + "vw";
   el.style.top = "-20px";
 
-  // kích thước ngẫu nhiên
-  el.style.fontSize = (Math.random() * 10 + 10) + "px";
+  // size
+  const size = Math.random()*12 + 10;
+  el.style.fontSize = size + "px";
 
-  // độ mờ nhẹ (lụy hơn 😏)
-  el.style.opacity = (Math.random() * 0.3 + 0.2).toFixed(2);
+  // layer (tạo chiều sâu)
+  const isBack = Math.random() < 0.4;
+  el.classList.add(isBack ? "confetti-back" : "confetti-front");
 
-  // thời gian rơi
-  const duration = Math.random() * 6 + 8;
-
-  el.style.animation = `fallSoft ${duration}s linear`;
+  // tốc độ khác nhau
+  const duration = Math.random()*6 + 8;
+  el.style.animation = `fallAesthetic ${duration}s linear`;
 
   confettiBox.appendChild(el);
 
-  // tự xoá
-  setTimeout(() => {
+  setTimeout(()=>{
     el.remove();
-  }, (duration + 2) * 1000);
+  }, (duration+2)*1000);
 }
 
-function startGentleConfetti(){
+
+// 🌙 spawn tự nhiên (không đều)
+function startAestheticConfetti(){
   const isMobile = window.innerWidth < 600;
 
-  const amount = isMobile ? 1 : 2;     // 📱 ít hơn
-  const speed = isMobile ? 900 : 500;  // 📱 chậm hơn
+  const base = isMobile ? 1 : 2;
 
-  setInterval(() => {
-    for(let i = 0; i < amount; i++){
-      createConfettiPiece();
+  setInterval(()=>{
+    const randomAmount = Math.floor(Math.random()*base)+1;
+
+    for(let i=0;i<randomAmount;i++){
+      createAestheticConfetti();
     }
-  }, speed);
+  }, isMobile ? 800 : 500);
 }
-
 
 // ===== STARS ⭐ =====
 const canvas = document.getElementById("stars");
