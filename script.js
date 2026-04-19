@@ -107,8 +107,10 @@ function loadSong(index){
   currentSong = index;
   bgMusic.src = playlist[currentSong].src;
 
-  document.getElementById("musicTitle").textContent =
-    playlist[currentSong].name;
+  const titleEl = document.getElementById("musicTitle");
+if(titleEl){
+  titleEl.textContent = playlist[currentSong].name;
+}
 
   localStorage.setItem("currentSong", currentSong);
 }
