@@ -261,21 +261,25 @@ body > *:not(canvas){
 /* ===== MUSIC ===== */
 .toggle-music{
   position: fixed;
-  bottom: 20px;
+  top: 20px;
   right: 15px;
-  z-index: 300;
+  z-index: 999; /* 🔥 luôn nằm trên */
 
-  background: rgba(255,255,255,0.15);
-  border:none;
-  color:white;
+  width: 55px;
+  height: 55px;
 
-  padding:12px;
-  border-radius:50%;
-  cursor:pointer;
+  font-size: 22px;
 
-  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,0.2);
+  border: none;
+  color: white;
+
+  border-radius: 50%;
+  cursor: pointer;
+
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 15px rgba(255,182,217,0.4);
 }
-
 .music-player{
   position: fixed;
   bottom: 80px;
@@ -309,7 +313,12 @@ body > *:not(canvas){
   justify-content:space-between;
   margin-bottom:8px;
 }
-
+.player-box{
+  pointer-events: none;
+}
+.player-box.show{
+  pointer-events: auto;
+}
 .music-controls button,
 .music-list button{
   border:none;
@@ -318,6 +327,10 @@ body > *:not(canvas){
   border-radius:10px;
   padding:6px;
   cursor:pointer;
+}
+.music-controls button{/*dễ bấm*/
+  padding:10px;
+  font-size:16px;
 }
 
 /* ===== CONFETTI 💗 ===== */
