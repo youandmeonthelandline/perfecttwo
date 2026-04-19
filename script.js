@@ -53,13 +53,25 @@ document.getElementById("status").textContent = statusList[index];
 
 
 // ===== MUSIC (PLAYER XỊN) =====
+const musicBtn = document.getElementById("musicBtn");
+
+function updateMusicIcon(){
+  if(musicOn){
+    musicBtn.textContent = "🔊";
+  }else{
+    musicBtn.textContent = "🔇";
+  }
+}
+window.addEventListener("DOMContentLoaded", () => {
+  updateMusicIcon();
+});
 const bgMusic = document.getElementById("bgMusic");
 bgMusic.volume = 0.45;
 
 const playlist = [
   {src:"asset/phokhongem.mp3", name:"🎶 Phố không em"},
   {src:"asset/noinaycoanh.mp3", name:"💗 Nơi này có anh"},
-  {src:"asset/masscara.mp3", name:"🌙 Masscara"},
+  {src:"asset/masscara", name:"🌙 Masscara"},
   {src:"asset/song3.mp3", name:"✨ Bài 3"}
 ];
 
@@ -97,6 +109,7 @@ function togglePlay(){
   }
 
   localStorage.setItem("musicOn", musicOn);
+  updateMusicIcon(); // 🔥 thêm dòng này
 }
 
 // next / prev
@@ -111,8 +124,19 @@ function prevSong(){
 }
 
 // toggle UI
+let hideTimeout;
+
 function togglePlayer(){
-  document.getElementById("playerBox").classList.toggle("show");
+  const box = document.getElementById("playerBox");
+  box.classList.toggle("show");
+
+  if(box.classList.contains("show")){
+    clearTimeout(hideTimeout);
+
+    hideTimeout = setTimeout(()=>{
+      box.classList.remove("show");
+    }, 4000); // 🔥 4s tự ẩn
+  }
 }
 
 // load lại bài cũ
@@ -129,8 +153,11 @@ window.addEventListener("click", () => {
   }
 }, {once:true});
 
+
 // auto next
 bgMusic.addEventListener("ended", nextSong);
+
+
 
 //// ===== CONFETTI AESTHETIC FULL =====
 const confettiBox = document.getElementById("confetti");
