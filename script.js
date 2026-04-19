@@ -251,3 +251,9 @@ document.getElementById("distanceText").textContent =
 resize();
 draw();
 startGentleConfetti();
+window.addEventListener("load", () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "instant"
+  });
+});
