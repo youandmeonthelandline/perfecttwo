@@ -8,42 +8,47 @@
 </head>
 
 <body>
-<!--mưa hồng-->
+
 <div id="confetti"></div>
-<!--sao-->
 <canvas id="stars"></canvas>
-<!-- music -->
- 
+
+<!-- 🎧 BUTTON NHẠC -->
+<button class="toggle-music" onclick="togglePlayer()">🎧</button>
+
+<!-- 🎶 PLAYER -->
 <div class="music-player">
-  <div id="musicTitle" class="music-title">🎶 Đang phát...</div>
-  <div class="music-title" id="musicTitle">🎶 Phố không em</div>
+  <div class="player-box" id="playerBox">
+    <div id="musicTitle" class="music-title">🎶 Đang phát...</div>
 
-  <div class="music-controls">
-    <button onclick="prevSong()">⏮</button>
-    <button onclick="togglePlay()" id="playBtn">▶</button>
-    <button onclick="nextSong()">⏭</button>
-  </div>
+    <div class="music-controls">
+      <button onclick="prevSong()">⏮</button>
+      <button onclick="togglePlay()">▶</button>
+      <button onclick="nextSong()">⏭</button>
+    </div>
 
-  <div class="music-list">
-    <button onclick="playSong(0)">🎶 Phố không em</button>
-    <button onclick="playSong(1)">💗 Bài 1</button>
-    <button onclick="playSong(2)">🌙 Bài 2</button>
-    <button onclick="playSong(3)">✨ Bài 3</button>
+    <div class="music-list">
+      <button onclick="playSong(0)">🎶 Phố không em</button>
+      <button onclick="playSong(1)">💗 Bài 1</button>
+      <button onclick="playSong(2)">🌙 Bài 2</button>
+      <button onclick="playSong(3)">✨ Bài 3</button>
+    </div>
   </div>
 </div>
-<!-- ===== LOVE HEADER ===== -->
-<section class="love">
 
+<audio id="bgMusic" preload="auto"></audio>
+
+<!-- ===== LOVE ===== -->
+<section class="love">
   <div class="person">
     <img src="asset/HKN.jfif">
     <h3>Hoàng Kim Ngân</h3>
     <p>19/02/2008</p>
-    <P>Cung Song Ngư</P>
+    <p>Cung Song Ngư</p>
   </div>
 
- <div class="connect">
-  <div class="line"></div>
-</div>
+  <div class="connect">
+    <div class="line"></div>
+  </div>
 
   <div class="person">
     <img src="asset/TMH.jfif">
@@ -51,53 +56,36 @@
     <p>04/07/2009</p>
     <p>Cung Cự Giải</p>
   </div>
-
 </section>
 
 <!-- ===== STATS ===== -->
 <section class="stats">
-
   <h2>Chuyện của chúng mình</h2>
 
   <div class="box">
-    <p>💗 Bắt đầu: Thứ hai, 02/02/2026</p>
+    <p>💗 Bắt đầu: 02/02/2026</p>
     <p>⏳ Đã bên nhau: <span id="days">0</span> ngày</p>
-    <p>📅 Ngày gặp mặt: <span id="meet">Hẹn nhau mấy giờ??!</span></p>
-    <p>💌 Trạng thái: <span id="status">Đang nhớ nhau 💗</span></p>
+    <p>💌 Trạng thái: <span id="status"></span></p>
   </div>
-
-  <p class="note">
-   ”Muốn nghe bài gì nè”🌙
-  </p>
-
 </section>
-  <section class="distance">
+
+<!-- ===== DISTANCE ===== -->
+<section class="distance">
   <h2>🌍 Khoảng cách của chúng mình</h2>
 
-<div class="distance-box">
-  
-  <div class="place">
-    <p>Một nơi có em</p>
+  <div class="distance-box">
+    <div class="place">Một nơi có em</div>
+
+    <div class="line-distance">
+      <span>💗</span>
+    </div>
+
+    <div class="place">Một nơi có anh</div>
   </div>
 
-  <div class="line-distance">
-    <span>💗</span>
-  </div>
-
-  <div class="place">
-    <p>Một nơi có anh</p>
-  </div>
-
-</div>
-
-  <h3 id="distanceText">Đang tính...</h3>
-
-  <p class="distance-note">
-    “Xa ~1/nhớ 💗”
-  </p>
+  <h3 id="distanceText"></h3>
 </section>
 
 <script src="script.js"></script>
-
 </body>
 </html>
