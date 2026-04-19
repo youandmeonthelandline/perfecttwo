@@ -60,8 +60,6 @@ function updateMusicIcon(){
     musicBtn.textContent = "🔇";
   }
 }
-window.addEventListener("DOMContentLoaded", () => {
-  updateMusicIcon();
 });
 const bgMusic = document.getElementById("bgMusic");
 bgMusic.volume = 0.45;
@@ -275,6 +273,7 @@ document.getElementById("distanceText").textContent =
 resize();
 draw();
 startAestheticConfetti();
+ updateMusicIcon();
 
 window.addEventListener("load", () => {
   window.scrollTo({
