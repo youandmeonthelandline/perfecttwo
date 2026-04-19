@@ -1,3 +1,4 @@
+/* ===== BODY ===== */
 body{
   margin:0;
   font-family: Arial;
@@ -5,6 +6,12 @@ body{
   color:white;
   text-align:center;
   overflow-y:auto;
+}
+
+/* layer */
+body > *:not(canvas){
+  position: relative;
+  z-index: 2;
 }
 
 /* ===== LOVE ===== */
@@ -22,13 +29,31 @@ body{
   border-radius:50%;
   object-fit:cover;
   border:4px solid #ff7eb3;
+  animation: floatZoom 4s ease-in-out infinite;
+  transition: transform .4s;
 }
 
+.person img:hover{
+  transform: scale(1.08);
+}
+
+.person p{
+  opacity:.7;
+}
+
+/* zoom nhẹ */
+@keyframes floatZoom{
+  0%,100%{ transform:scale(1); }
+  50%{ transform:scale(1.05); }
+}
+
+/* ===== CONNECT ===== */
 .connect{
   margin:0 20px;
-  width:200px;
+  width:220px;
   height:60px;
   position:relative;
+  overflow:hidden;
 }
 
 .line{
@@ -36,8 +61,11 @@ body{
   width:200%;
   height:100%;
   background:
-  radial-gradient(circle at 10% 50%, pink 2px, transparent 3px);
-  animation: waveMove 2s linear infinite;
+  radial-gradient(circle at 10% 50%, pink 2px, transparent 3px),
+  radial-gradient(circle at 50% 50%, pink 2px, transparent 3px),
+  radial-gradient(circle at 90% 50%, pink 2px, transparent 3px);
+  background-size: 100px 100%;
+  animation: waveMove 2s linear infinite alternate;
 }
 
 .line::after{
@@ -46,14 +74,24 @@ body{
   left:50%;
   top:50%;
   transform:translate(-50%,-50%);
+  animation: heartbeat 1.4s infinite;
 }
 
 @keyframes waveMove{
-  0%{transform:translateX(0)}
-  100%{transform:translateX(-100px)}
+  0%{ transform:translateX(0); }
+  100%{ transform:translateX(-100px); }
+}
+
+@keyframes heartbeat{
+  0%,100%{ transform:translate(-50%,-50%) scale(1); }
+  50%{ transform:translate(-50%,-50%) scale(1.2); }
 }
 
 /* ===== STATS ===== */
+.stats{
+  padding:40px 20px;
+}
+
 .box{
   background: rgba(255,255,255,0.1);
   padding:20px;
@@ -62,12 +100,19 @@ body{
   width:320px;
 }
 
+.note{
+  opacity:.7;
+  font-style:italic;
+}
+
 /* ===== DISTANCE ===== */
 .distance{
   margin:30px 20px;
   padding:25px;
   border-radius:20px;
   background: rgba(20,25,60,0.6);
+  backdrop-filter: blur(10px);
+  border:1px solid rgba(255,255,255,.15);
 }
 
 .distance-box{
@@ -77,11 +122,19 @@ body{
   gap:20px;
 }
 
+.place{
+  min-width:120px;
+  text-align:center;
+  font-weight:bold;
+  opacity:.9;
+}
+
 .line-distance{
   width:120px;
   height:2px;
-  background:pink;
+  background: linear-gradient(to right, pink, white, pink);
   position:relative;
+  animation: moveLine 2s linear infinite;
 }
 
 .line-distance span{
@@ -91,17 +144,29 @@ body{
   transform:translateX(-50%);
 }
 
+@keyframes moveLine{
+  0%{ background-position:0; }
+  100%{ background-position:120px; }
+}
+
+#distanceText{
+  margin-top:10px;
+  font-size:22px;
+  color:#ffb6d9;
+}
+
 /* ===== MUSIC ===== */
 .toggle-music{
   position: fixed;
   bottom: 20px;
   right: 15px;
   z-index: 300;
+  background: rgba(255,255,255,0.15);
   padding:12px;
   border-radius:50%;
-  background: rgba(255,255,255,0.2);
   border:none;
   color:white;
+  cursor:pointer;
 }
 
 .music-player{
@@ -111,25 +176,39 @@ body{
 }
 
 .player-box{
-  display:none;
   width:180px;
   padding:10px;
   border-radius:16px;
-  background: rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+  border:1px solid rgba(255,255,255,.15);
+
+  display:none;
+  opacity:0;
+  transform:scale(.9);
+  transition:.3s;
 }
 
 .player-box.show{
   display:block;
+  opacity:1;
+  transform:scale(1);
 }
 
 .music-controls{
   display:flex;
   justify-content:space-between;
+  margin-bottom:8px;
 }
 
-.music-list{
-  display:flex;
-  flex-direction:column;
+.music-controls button,
+.music-list button{
+  border:none;
+  background: rgba(255,255,255,0.1);
+  color:white;
+  border-radius:10px;
+  padding:6px;
+  cursor:pointer;
 }
 
 /* ===== CONFETTI ===== */
@@ -149,4 +228,24 @@ body{
   position:fixed;
   inset:0;
   z-index:0;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width:600px){
+  .person img{
+    width:90px;
+    height:90px;
+  }
+
+  .connect{
+    width:120px;
+  }
+
+  .distance-box{
+    flex-direction:column;
+  }
+
+  .line-distance{
+    width:80px;
+  }
 }
