@@ -282,6 +282,13 @@ body > *:not(canvas){
   backdrop-filter: blur(12px);
   box-shadow: 0 0 15px rgba(255,182,217,0.4);
 }
+body{/*để dưới góc*/
+  padding-bottom: 80px;
+}
+.toggle-music{
+  bottom: 15px;
+  right: 12px;
+}
 .music-player{
   position: fixed;
   bottom: 80px;
