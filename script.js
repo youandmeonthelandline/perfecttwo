@@ -1,14 +1,16 @@
+// ===== DAYS =====
 const START_DATE = new Date("2026-02-02");
 
 function calcDays(){
-const now = new Date();
-const diff = now - START_DATE;
-return Math.floor(diff / (1000*60*60*24));
+  const now = new Date();
+  const diff = now - START_DATE;
+  return Math.floor(diff / (1000*60*60*24));
 }
 
 document.getElementById("days").textContent = calcDays();
-// ===== CẬP NHẬT TRẠNG THÁI =====
-// ===== DANH SÁCH 30 CÂU =====
+
+
+// ===== STATUS (30 CÂU) =====
 const statusList = [
   "Vẫn ổn, chỉ là thiếu một người.",
   "Không nói nhiều, nhưng luôn nghĩ tới.",
@@ -42,57 +44,18 @@ const statusList = [
   "Ở đâu cũng được, miễn là cùng nhau."
 ];
 
-// ===== RANDOM THEO NGÀY =====
+// random theo ngày (không đổi trong ngày)
 const today = new Date();
-const seed = today.getFullYear() * 1000 + today.getMonth() * 100 + today.getDate();
-
-// tạo random nhưng cố định trong ngày
+const seed = today.getFullYear()*1000 + today.getMonth()*100 + today.getDate();
 const index = seed % statusList.length;
 
 document.getElementById("status").textContent = statusList[index];
-//======NHẠC 🎵=====
-    const bgMusic =document.getElementById("bgMusic");//👉 Lấy audio
-    const musicBtn = document.getElementById("musicBtn");
-    bgMusic.volume = 0.45;//👉 Âm lượng
 
-    let musicOn = localStorage.getItem("musicOn") === "true";//👉 Lưu trạng thái nhạc
-    function updateMusicBtn(){
-      musicBtn.textContent = musicOn ? "🔇 Tắt nhạc" : "🎵 Bật nhạc";
-    }
-    async function playMusic(){//👉 Phát nhạc
-      try{
-        await bgMusic.play();
-        musicOn = true;
-        localStorage.setItem("musicOn","true");
-      }catch(e){
-        musicOn = false;
-        localStorage.setItem("musicOn","false");
-      }
-      updateMusicBtn();
-    }
-    function pauseMusic(){//👉 Tắt nhạc
-      bgMusic.pause();
-      musicOn = false;
-      localStorage.setItem("musicOn","false");
-      updateMusicBtn();
-    }
-    musicBtn.addEventListener("click", () => {
-      if(musicOn) pauseMusic();
-      else playMusic();
-    });
 
-    // ✅ auto play when user first interacts (mobile friendly)
-    const start = async () => {
-  if(!musicOn){
-    await bgMusic.play(); // ✅ dùng trực tiếp
-    musicOn = true;
-    localStorage.setItem("musicOn","true");
-    updateMusicBtn();
-  }
-};
-      window.addEventListener("click", start, { once:true });
-      window.addEventListener("touchstart", start, { once:true });
-    }
+// ===== MUSIC (PLAYER XỊN) =====
+const bgMusic = document.getElementById("bgMusic");
+bgMusic.volume = 0.45;
+
 const playlist = [
   {src:"asset/phokhongem.mp3", name:"🎶 Phố không em"},
   {src:"asset/song1.mp3", name:"💗 Bài 1"},
@@ -101,28 +64,26 @@ const playlist = [
 ];
 
 let currentSong = 0;
+let musicOn = localStorage.getItem("musicOn") === "true";
 
 // load bài
-function loadSong(index){
-  currentSong = index;
-  bgMusic.src = playlist[currentSong].src;
+function loadSong(i){
+  currentSong = i;
+  bgMusic.src = playlist[i].src;
 
-  const titleEl = document.getElementById("musicTitle");
-if(titleEl){
-  titleEl.textContent = playlist[currentSong].name;
+  const title = document.getElementById("musicTitle");
+  if(title) title.textContent = playlist[i].name;
+
+  localStorage.setItem("currentSong", i);
 }
 
-  localStorage.setItem("currentSong", currentSong);
-}
-
-// play bài cụ thể
-function playSong(index){
-  loadSong(index);
+// play bài
+function playSong(i){
+  loadSong(i);
   bgMusic.play();
 
   musicOn = true;
   localStorage.setItem("musicOn","true");
-  updateMusicBtn();
 }
 
 // play / pause
@@ -136,148 +97,138 @@ function togglePlay(){
   }
 
   localStorage.setItem("musicOn", musicOn);
-  updateMusicBtn();
 }
 
-// next
+// next / prev
 function nextSong(){
-  currentSong = (currentSong + 1) % playlist.length;
+  currentSong = (currentSong+1) % playlist.length;
   playSong(currentSong);
 }
 
-// prev
 function prevSong(){
-  currentSong = (currentSong - 1 + playlist.length) % playlist.length;
+  currentSong = (currentSong-1+playlist.length) % playlist.length;
   playSong(currentSong);
 }
 
-// auto load khi mở web
-let savedSong = localStorage.getItem("currentSong");
-
-if(savedSong !== null){
-  currentSong = parseInt(savedSong);
+// toggle UI
+function togglePlayer(){
+  document.getElementById("playerBox").classList.toggle("show");
 }
 
+// load lại bài cũ
+let saved = localStorage.getItem("currentSong");
+if(saved !== null){
+  currentSong = parseInt(saved);
+}
 loadSong(currentSong);
 
+// auto play khi user chạm (mobile fix)
+window.addEventListener("click", () => {
+  if(musicOn){
+    bgMusic.play();
+  }
+}, {once:true});
+
+// auto next
+bgMusic.addEventListener("ended", nextSong);
+
+
+// ===== CONFETTI 💗 =====
 const confettiBox = document.getElementById("confetti");
 
-function createConfettiPiece(){
+function createConfetti(){
   const el = document.createElement("span");
 
   el.innerHTML = "💗";
-
-  el.style.position = "absolute";
-  el.style.left = Math.random() * 100 + "vw";
+  el.style.left = Math.random()*100 + "vw";
   el.style.top = "-20px";
+  el.style.fontSize = (Math.random()*10+10)+"px";
+  el.style.opacity = (Math.random()*0.3+0.2).toFixed(2);
 
-  el.style.fontSize = (Math.random() * 10 + 10) + "px";
-
-  // ✅ để opacity ở đây
-  el.style.opacity = (Math.random() * 0.3 + 0.2).toFixed(2);
-
-  const duration = Math.random() * 6 + 8;
-  el.style.animation = "fallSoft " + duration + "s linear";
+  const duration = Math.random()*6+8;
+  el.style.animation = "fallSoft "+duration+"s linear";
 
   confettiBox.appendChild(el);
 
-  setTimeout(() => {
-    el.remove();
-  }, (duration + 2) * 1000);
+  setTimeout(()=>el.remove(), (duration+2)*1000);
 }
-function startGentleConfetti(){
+
+function startConfetti(){
   const isMobile = window.innerWidth < 600;
+  const amount = isMobile ? 1 : 2;
+  const speed = isMobile ? 900 : 500;
 
-  const amount = isMobile ? 1 : 2;      // 📱 ít hơn
-  const speed = isMobile ? 900 : 500;   // 📱 chậm hơn
-
-  setInterval(() => {
-    for(let i = 0; i < amount; i++){
-      createConfettiPiece();
+  setInterval(()=>{
+    for(let i=0;i<amount;i++){
+      createConfetti();
     }
   }, speed);
 }
-// 🌟 PHẦN 4: SAO LẤP LÁNH ⭐
-    const canvas = document.getElementById("stars");//👉 Lấy canvas (vùng vẽ)
-    const ctx = canvas.getContext("2d");//👉 Lấy công cụ vẽ 2D
-    let W, H, stars;
 
-    function resize(){//👉 Khi thay đổi kích thước màn hình
-      W = canvas.width = window.innerWidth;
-      H = canvas.height = window.innerHeight;
-      createStars();//👉 Tạo sao mới
-    }
-    window.addEventListener("resize", resize);
 
-    function createStars(){//👉 Tạo danh sách sao
-      const count = Math.floor((W * H) / 12000);
-      stars = Array.from({length: count}, () => ({//👉 Tạo nhiều ngôi sao random
-        x: Math.random()*W,
-        y: Math.random()*H,
-        r: Math.random()*1.4 + 0.3,
-        a: Math.random()*0.8 + 0.2
-      }));
-    }
+// ===== STARS ⭐ =====
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
 
-    function draw(){//👉 Vẽ sao
-      ctx.clearRect(0,0,W,H);
-      for(const st of stars){
-        st.a += (Math.random() - 0.5) * 0.1;
-        st.a = Math.max(0.12, Math.min(0.95, st.a));
-        ctx.beginPath();
-        ctx.arc(st.x, st.y, st.r, 0, Math.PI*2);//👉 Vẽ hình tròn (ngôi sao)
-        ctx.fillStyle = `rgba(255,255,255,${st.a})`;
-        ctx.fill();
-      }
-      requestAnimationFrame(draw);//👉 Lặp animation liên tục
-    }
-//Khoảng cách chúng mình//
-// 💗 DISTANCE
-function calculateDistance(){
-  // tọa độ gần đúng
-  const lamHa = { lat: 11.93, lon: 108.23 };
-  const cuaOng = { lat: 21.02, lon: 107.33 };
+let W,H,stars;
 
-  function toRad(x){
-    return x * Math.PI / 180;
+function resize(){
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+
+  stars = Array.from({length: Math.floor((W*H)/12000)}, ()=>({
+    x:Math.random()*W,
+    y:Math.random()*H,
+    r:Math.random()*1.4+0.3,
+    a:Math.random()*0.8+0.2
+  }));
+}
+
+window.addEventListener("resize", resize);
+
+function draw(){
+  ctx.clearRect(0,0,W,H);
+
+  for(const s of stars){
+    s.a += (Math.random()-0.5)*0.1;
+    s.a = Math.max(0.1, Math.min(1,s.a));
+
+    ctx.beginPath();
+    ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fillStyle = `rgba(255,255,255,${s.a})`;
+    ctx.fill();
   }
 
-  const R = 6371; // bán kính trái đất (km)
+  requestAnimationFrame(draw);
+}
+
+
+// ===== DISTANCE =====
+function calculateDistance(){
+  const lamHa = {lat:11.93, lon:108.23};
+  const cuaOng = {lat:21.02, lon:107.33};
+
+  const toRad = x => x*Math.PI/180;
+  const R = 6371;
 
   const dLat = toRad(cuaOng.lat - lamHa.lat);
   const dLon = toRad(cuaOng.lon - lamHa.lon);
 
   const a =
-    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.sin(dLat/2)**2 +
     Math.cos(toRad(lamHa.lat)) *
     Math.cos(toRad(cuaOng.lat)) *
-    Math.sin(dLon/2) *
-    Math.sin(dLon/2);
+    Math.sin(dLon/2)**2;
 
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-
-  const distance = Math.round(R * c);
-
-  return distance;
+  const c = 2*Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  return Math.round(R*c);
 }
 
-// hiển thị
-const distance = calculateDistance();
 document.getElementById("distanceText").textContent =
-  "Cách nhau " + distance + " km 💗";
+  "Cách nhau " + calculateDistance() + " km 💗";
 
-// 🚀 chạy    
-//# 🌟 PHẦN 11: CHẠY LÚC MỞ WEB
-    resize();
-    draw();
-    startGentleConfetti();
-    //resize(); draw(); startGentleConfetti() 👉 Khởi động hiệu ứng
-    //buildMarquee();
-    //buildImages();
-    //updateStats();
-    //setInterval(updateStats, 60*1000);//👉 Cập nhật mỗi phút
-    updateMusicBtn();
-    enableMusicOnFirstTouch();//👉 Click mới bật nhạc (tránh bị chặn)
-    if(musicOn) playMusic();
-//mưa hồng
 
+// ===== RUN =====
+resize();
+draw();
+startConfetti();
