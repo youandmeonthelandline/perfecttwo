@@ -272,7 +272,9 @@ document.getElementById("distanceText").textContent =
 resize();
 draw();
 startAestheticConfetti();
- updateMusicIcon();
+window.addEventListener("DOMContentLoaded", () => {
+  updateMusicIcon();
+});
 
 window.addEventListener("load", () => {
   window.scrollTo({
