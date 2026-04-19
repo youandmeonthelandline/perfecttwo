@@ -167,6 +167,41 @@ function startGentleConfetti(){
       }
       requestAnimationFrame(draw);//👉 Lặp animation liên tục
     }
+//Khoảng cách chúng mình//
+// 💗 DISTANCE
+function calculateDistance(){
+  // tọa độ gần đúng
+  const lamHa = { lat: 11.93, lon: 108.23 };
+  const cuaOng = { lat: 21.02, lon: 107.33 };
+
+  function toRad(x){
+    return x * Math.PI / 180;
+  }
+
+  const R = 6371; // bán kính trái đất (km)
+
+  const dLat = toRad(cuaOng.lat - lamHa.lat);
+  const dLon = toRad(cuaOng.lon - lamHa.lon);
+
+  const a =
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(toRad(lamHa.lat)) *
+    Math.cos(toRad(cuaOng.lat)) *
+    Math.sin(dLon/2) *
+    Math.sin(dLon/2);
+
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+  const distance = Math.round(R * c);
+
+  return distance;
+}
+
+// hiển thị
+const distance = calculateDistance();
+document.getElementById("distanceText").textContent =
+  "Cách nhau " + distance + " km 💗";
+
 // 🚀 chạy    
 //# 🌟 PHẦN 11: CHẠY LÚC MỞ WEB
     resize();
