@@ -281,3 +281,74 @@ body{
       font-size: 20px;
       cursor:pointer;
     }
+/*Khoảng cách địa lý*/
+/* ===== DISTANCE ===== */
+.distance{
+  position: relative;
+  z-index: 3;
+
+  background: rgba(20,25,60,0.6);
+  backdrop-filter: blur(10px);
+
+  margin: 30px 20px;
+  padding: 25px;
+  border-radius: 20px;
+
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+.distance-box{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:15px;
+  margin:20px 0;
+  flex-wrap:wrap;
+}
+
+.place{
+  font-weight: bold;
+  opacity: 0.9;
+}
+
+/* đường nối */
+.line-distance{
+  position: relative;
+  width:120px;
+  height:2px;
+  background: linear-gradient(to right, pink, white, pink);
+  animation: moveLine 2s linear infinite;
+}
+
+/* tim ở giữa */
+.line-distance span{
+  position:absolute;
+  top:-12px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:18px;
+  animation: heartbeat 1.5s infinite;
+}
+
+@keyframes moveLine{
+  0%{ background-position:0; }
+  100%{ background-position:120px; }
+}
+
+@keyframes heartbeat{
+  0%,100%{ transform:translateX(-50%) scale(1); }
+  50%{ transform:translateX(-50%) scale(1.2); }
+}
+
+#distanceText{
+  margin-top:10px;
+  font-size:22px;
+  color:#ffb6d9;
+}
+
+.distance-note{
+  margin-top:10px;
+  opacity:0.7;
+  font-style:italic;
+}
