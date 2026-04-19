@@ -132,35 +132,49 @@ window.addEventListener("click", () => {
 // auto next
 bgMusic.addEventListener("ended", nextSong);
 
-
-// ===== CONFETTI 💗 =====
+// ===== CONFETTI 💗 (BẢN GỐC MƯỢT) =====
 const confettiBox = document.getElementById("confetti");
 
-function createConfetti(){
+function createConfettiPiece(){
+  if(!confettiBox) return;
+
   const el = document.createElement("span");
 
+  // 💗 tim
   el.innerHTML = "💗";
-  el.style.left = Math.random()*100 + "vw";
-  el.style.top = "-20px";
-  el.style.fontSize = (Math.random()*10+10)+"px";
-  el.style.opacity = (Math.random()*0.3+0.2).toFixed(2);
 
-  const duration = Math.random()*6+8;
-  el.style.animation = "fallSoft "+duration+"s linear";
+  el.style.position = "absolute";
+  el.style.left = Math.random() * 100 + "vw";
+  el.style.top = "-20px";
+
+  // kích thước ngẫu nhiên
+  el.style.fontSize = (Math.random() * 10 + 10) + "px";
+
+  // độ mờ nhẹ (lụy hơn 😏)
+  el.style.opacity = (Math.random() * 0.3 + 0.2).toFixed(2);
+
+  // thời gian rơi
+  const duration = Math.random() * 6 + 8;
+
+  el.style.animation = `fallSoft ${duration}s linear`;
 
   confettiBox.appendChild(el);
 
-  setTimeout(()=>el.remove(), (duration+2)*1000);
+  // tự xoá
+  setTimeout(() => {
+    el.remove();
+  }, (duration + 2) * 1000);
 }
 
-function startConfetti(){
+function startGentleConfetti(){
   const isMobile = window.innerWidth < 600;
-  const amount = isMobile ? 1 : 2;
-  const speed = isMobile ? 900 : 500;
 
-  setInterval(()=>{
-    for(let i=0;i<amount;i++){
-      createConfetti();
+  const amount = isMobile ? 1 : 2;     // 📱 ít hơn
+  const speed = isMobile ? 900 : 500;  // 📱 chậm hơn
+
+  setInterval(() => {
+    for(let i = 0; i < amount; i++){
+      createConfettiPiece();
     }
   }, speed);
 }
@@ -231,4 +245,4 @@ document.getElementById("distanceText").textContent =
 // ===== RUN =====
 resize();
 draw();
-startConfetti();
+startGentleConfetti();
