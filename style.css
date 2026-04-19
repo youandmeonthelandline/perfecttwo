@@ -71,7 +71,7 @@ body > *:not(canvas){
     radial-gradient(circle at 70% 50%, pink 2px, transparent 3px),
     radial-gradient(circle at 90% 50%, pink 2px, transparent 3px);
   background-size: 100px 100%;
-  animation: waveMove 2s linear infinite alternate;
+  animation: waveMove 3s linear infinite alternate;
 }
 
 .line::after{
@@ -84,8 +84,9 @@ body > *:not(canvas){
 }
 
 @keyframes waveMove{
-  0%{ transform: translateX(0); }
-  100%{ transform: translateX(-100px); }
+  0%{ transform: translateX(-50px); }
+  50%{ transform: translateX(50px); }
+  100%{ transform: translateX(-50px); }
 }
 
 @keyframes heartbeatSmooth{
