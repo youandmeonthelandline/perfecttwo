@@ -261,9 +261,11 @@ body > *:not(canvas){
 /* ===== MUSIC ===== */
 .toggle-music{
   position: fixed;
-  top: 20px;
+  bottom: 20px;   /* 👈 đưa xuống dưới */
   right: 15px;
-  z-index: 999; /* 🔥 luôn nằm trên */
+  top: auto;      /* 👈 thêm dòng này để bỏ top */
+
+  z-index: 999;
 
   width: 55px;
   height: 55px;
