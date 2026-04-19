@@ -254,6 +254,6 @@ startGentleConfetti();
 window.addEventListener("load", () => {
   window.scrollTo({
     top: 0,
-    behavior: "instant"
+    behavior: "smooth"
   });
 });
