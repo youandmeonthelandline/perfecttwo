@@ -58,7 +58,7 @@ bgMusic.volume = 0.45;
 
 const playlist = [
   {src:"asset/phokhongem.mp3", name:"🎶 Phố không em"},
-  {src:"asset/song1.mp3", name:"💗 Bài 1"},
+  {src:"asset/noinaycoanh.mp3", name:"💗 Nơi này có anh"},
   {src:"asset/song2.mp3", name:"🌙 Bài 2"},
   {src:"asset/song3.mp3", name:"✨ Bài 3"}
 ];
