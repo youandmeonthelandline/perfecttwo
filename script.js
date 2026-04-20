@@ -157,7 +157,7 @@ bgMusic.addEventListener("ended", nextSong);
 //// ===== CONFETTI AESTHETIC FULL =====
 const confettiBox = document.getElementById("confetti");
 
-const hearts = ["💗","🌸","💗","🥺"];
+const hearts = ["💗","🌸","Love","🥺"];
 
 function createAestheticConfetti(){
   if(!confettiBox) return;
