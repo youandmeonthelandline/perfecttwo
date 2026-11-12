@@ -12,8 +12,11 @@
 <div id="confetti"></div>
 <canvas id="stars"></canvas>
 
+
 <!-- 🎧 BUTTON NHẠC -->
-<button class="toggle-music" onclick="togglePlayer()" id="musicBtn">🎧</button>
+<button class="toggle-music" onclick="togglePlayer()" id="musicBtn">
+  🎧
+</button>
 
 <!-- 🎶 PLAYER -->
 <div class="music-player">
@@ -22,13 +25,14 @@
 
     <div class="music-controls">
       <button onclick="prevSong()">⏮</button>
-      <button onclick="togglePlay()">▶</button>
+      <button onclick="togglePlay()" id="playBtn">▶</button>
       <button onclick="nextSong()">⏭</button>
     </div>
   </div>
 </div>
 
 <audio id="bgMusic" preload="auto"></audio>
+
 
 <!-- ===== LOVE ===== -->
 <section class="love">
