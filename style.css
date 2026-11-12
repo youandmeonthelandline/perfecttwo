@@ -329,9 +329,15 @@ body{/*để dưới góc*/
   margin-bottom:8px;
 }
 .player-box{
-  pointer-events: none;
+  pointer-events: auto;
+  position: relative;
+  z-index: 10002;
 }
+
 .player-box.show{
+  display: block;
+  opacity: 1;
+  transform: scale(1);
   pointer-events: auto;
 }
 .music-controls button,
