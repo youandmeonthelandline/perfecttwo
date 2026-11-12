@@ -264,95 +264,79 @@ body > *:not(canvas){
   color:#ffb6d9;
 }
 
-/* ===== MUSIC ===== */
+
+/* ===== MUSIC PLAYER FIX ===== */
+
 .toggle-music{
   position: fixed;
-  bottom: 20px;   /* 👈 đưa xuống dưới */
-  right: 15px;
-  top: auto;      /* 👈 thêm dòng này để bỏ top */
-
-  z-index: 999;
+  bottom: 15px;
+  right: 12px;
+  z-index: 10010;
 
   width: 55px;
   height: 55px;
-
   font-size: 22px;
 
   background: rgba(255,255,255,0.2);
   border: none;
   color: white;
-
   border-radius: 50%;
   cursor: pointer;
 
   backdrop-filter: blur(12px);
   box-shadow: 0 0 15px rgba(255,182,217,0.4);
+
+  pointer-events: auto;
 }
-body{/*để dưới góc*/
-  padding-bottom: 80px;
-}
-.toggle-music{
-  bottom: 15px;
-  right: 12px;
-}
+
 .music-player{
   position: fixed;
   bottom: 80px;
   right: 15px;
+  z-index: 10009;
+  pointer-events: none;
 }
 
 .player-box{
-  width:180px;
-  padding:10px;
-  border-radius:16px;
+  width: 180px;
+  padding: 10px;
+  border-radius: 16px;
 
-  background: rgba(255,255,255,0.08);
+  background: rgba(30,30,70,0.9);
   backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
 
-  border:1px solid rgba(255,255,255,0.15);
+  display: none;
+  opacity: 0;
+  transform: scale(.9);
+  transition: .3s;
 
-  display:none;
-  opacity:0;
-  transform:scale(.9);
-  transition:.3s;
-}
-
-.player-box.show{
-  display:block;
-  opacity:1;
-  transform:scale(1);
-}
-
-.music-controls{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:8px;
-}
-.player-box{
   pointer-events: auto;
-  position: relative;
-  z-index: 10002;
 }
 
 .player-box.show{
   display: block;
   opacity: 1;
   transform: scale(1);
+}
+
+.music-controls{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.music-controls button{
+  border: none;
+  background: rgba(255,255,255,0.15);
+  color: white;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
   pointer-events: auto;
 }
-.music-controls button,
-.music-list button{
-  border:none;
-  background: rgba(255,255,255,0.1);
-  color:white;
-  border-radius:10px;
-  padding:6px;
-  cursor:pointer;
-}
-.music-controls button{/*dễ bấm*/
-  padding:10px;
-  font-size:16px;
-}
+
 
 /* ===== CONFETTI 💗 ===== */
 #confetti{
